@@ -1,0 +1,20 @@
+{
+  "name": "PTEN",
+  "length": 403,
+  "domains": [
+    {
+      "name": "Phosphatase",
+      "start": 14,
+      "end": 185,
+      "color": "#a6cee3",
+      "textcolor": "black"
+    },
+    {
+      "name": "C2",
+      "start": 190,
+      "end": 350,
+      "color": "#b2df8a",
+      "textcolor": "black"
+    }
+  ]
+}
