@@ -43,7 +43,10 @@ def plot_figure(
 
 
 def plot_gene_body(
-    ax: plt.axes, gene: Mapping[str, Any], gene_model_height: float
+    ax: plt.axes,
+    gene: Mapping[str, Any],
+    gene_model_height: float,
+    vertical_offset: float = 0,
 ) -> None:
     """
 
@@ -52,15 +55,17 @@ def plot_gene_body(
     ax
     gene
     gene_model_height
+    vertical_offset
 
     Returns
     -------
 
     """
+    gene_model_y = -gene_model_height + vertical_offset
     gene_rect = patches.Rectangle(
-        (1, -gene_model_height),
-        gene["length"],
-        gene_model_height,
+        xy=(1, gene_model_y),
+        width=gene["length"],
+        height=gene_model_height,
         facecolor="white",
         edgecolor="black",
         linewidth=1,
@@ -68,19 +73,22 @@ def plot_gene_body(
     ax.add_artist(gene_rect)
 
     for domain in gene["domains"]:
-        width = domain["end"] - domain["start"] + 1
+        domain_width = domain["end"] - domain["start"] + 1
         rect = patches.Rectangle(
-            (domain["start"], -gene_model_height),
-            width,
-            gene_model_height,
+            xy=(domain["start"], gene_model_y),
+            width=domain_width,
+            height=gene_model_height,
             facecolor=domain["color"],
             edgecolor="black",
             linewidth=1,
         )
         ax.add_artist(rect)
         ax.annotate(
-            domain["name"],
-            (domain["start"] + width / 2, -gene_model_height / 2),
+            s=domain["name"],
+            xy=(
+                domain["start"] + domain_width / 2,
+                gene_model_y + gene_model_height / 2,
+            ),
             ha="center",
             va="center",
             color=domain["textcolor"],
