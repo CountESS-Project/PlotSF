@@ -7,4 +7,5 @@ if __name__ == "__main__":
     with open("example/PTEN.json", "r") as handle:
         gene = json.load(handle)
     data = read_clinvar_tabular_file("example/PTEN_clinvar.txt")
-    plot_figure(data, gene, "example/PTEN_test.pdf")
+    fig = plot_figure(data, gene)
+    fig.savefig("example/PTEN_test.pdf")

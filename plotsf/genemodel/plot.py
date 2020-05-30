@@ -2,13 +2,14 @@ from typing import Mapping, Sequence, Optional, Any, Union
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import matplotlib.gridspec as gridspec
+import matplotlib.figure
 import pandas as pd
 import numpy as np
 
 
 def plot_figure(
-    df: pd.DataFrame, genes: Union[Mapping, Sequence[Mapping]], fname: str
-) -> None:
+    df: pd.DataFrame, genes: Union[Mapping, Sequence[Mapping]]
+) -> matplotlib.figure.Figure:
     """Wrapper for single- or multi-gene figures.
 
     If multiple genes are provided, each will be rendered as its own axis in a vertical stack and each will be labeled
@@ -18,11 +19,11 @@ def plot_figure(
     ----------
     df: pd.DataFrame
     genes: Union[Mapping, Sequence[Mapping]]
-    fname: str
 
     Returns
     -------
-    None
+    matplotlib.figure.Figure
+        The created figure object.
 
     """
     if isinstance(genes, Mapping):  # convert single genes into a list of length 1
@@ -38,7 +39,7 @@ def plot_figure(
             fig.legend()
         if i == len(genes) - 1:
             ax.set_xlabel("amino acid position")
-    fig.savefig(fname)
+    return fig
 
 
 def plot_gene_body(
