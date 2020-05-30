@@ -72,27 +72,28 @@ def plot_gene_body(
     )
     ax.add_artist(gene_rect)
 
-    for domain in gene["domains"]:
-        domain_width = domain["end"] - domain["start"] + 1
-        rect = patches.Rectangle(
-            xy=(domain["start"], gene_model_y),
-            width=domain_width,
-            height=gene_model_height,
-            facecolor=domain["color"],
-            edgecolor="black",
-            linewidth=1,
-        )
-        ax.add_artist(rect)
-        ax.annotate(
-            s=domain["name"],
-            xy=(
-                domain["start"] + domain_width / 2,
-                gene_model_y + gene_model_height / 2,
-            ),
-            ha="center",
-            va="center",
-            color=domain["textcolor"],
-        )
+    if "domains" in gene:
+        for domain in gene["domains"]:
+            domain_width = domain["end"] - domain["start"] + 1
+            rect = patches.Rectangle(
+                xy=(domain["start"], gene_model_y),
+                width=domain_width,
+                height=gene_model_height,
+                facecolor=domain["color"],
+                edgecolor="black",
+                linewidth=1,
+            )
+            ax.add_artist(rect)
+            ax.annotate(
+                s=domain["name"],
+                xy=(
+                    domain["start"] + domain_width / 2,
+                    gene_model_y + gene_model_height / 2,
+                ),
+                ha="center",
+                va="center",
+                color=domain["textcolor"],
+            )
 
 
 def format_axes_for_gene(
