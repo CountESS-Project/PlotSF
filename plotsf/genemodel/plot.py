@@ -95,6 +95,27 @@ def plot_gene_body(
                 color=domain["textcolor"],
             )
 
+    if "endlabels" in gene:
+        for endlabel in gene["endlabels"]:
+            # spacing = gene["length"] * 0.01     # TODO: fix so that the labels match up across multiple gene models
+            spacing = 10
+            if endlabel["side"] == "left":
+                endlabel_x = -spacing
+                endlabel_ha = "right"
+            elif endlabel["side"] == "right":
+                endlabel_x = gene["length"] + spacing
+                endlabel_ha = "left"
+            else:
+                raise ValueError("endlabel side must be one of 'left' or 'right'")
+
+            ax.annotate(
+                s=endlabel["text"],
+                xy=(endlabel_x, gene_model_y + gene_model_height / 2),
+                ha=endlabel_ha,
+                va="center",
+                color=endlabel["textcolor"],
+            )
+
 
 def format_axes_for_gene(
     ax: plt.axes, gene: Mapping[str, Any], gene_model_height: float
